@@ -1,8 +1,12 @@
 import React from 'react';
 import './App.css';
 
-function App() {
-  return <div className='App'></div>;
+interface AppProps {
+  message: string;
+}
+
+function App({ message }: AppProps) {
+  return <div className='App'>{message}</div>;
 }
 
 export default App;
