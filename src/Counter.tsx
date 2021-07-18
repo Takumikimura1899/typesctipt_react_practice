@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
+// おまけ
 // const array: Array<number> = [1, 2, 3];
 // const readonlyArray: ReadonlyArray<number> = [1, 2, 3];
 // array[0] = 11;
@@ -9,6 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 const Counter: React.FC<{}> = () => {
   // any型で指定してある
   const initialValue: any = 0;
+
   // useStateの初期値はnumber型だと変換出来る
   const [count, setCount] = useState<number>(initialValue);
 
@@ -30,13 +32,29 @@ const Counter: React.FC<{}> = () => {
   useEffect(() => {
     renderTimes.current = renderTimes.current + 1;
   });
+  // ノンヌルアサーションオペレーターという
+  const ref = useRef<HTMLInputElement>(null!);
+  const focusInput = () => {
+    console.log('focus in!');
+    ref.current.focus();
+
+    // オプショナルチェイニング
+    // ref.current?.focus();
+
+    // nullチェック
+    // const current = ref.current;
+    // if (current != null) current.focus();
+  };
 
   return (
     <>
       <div>count:{count}</div>
       <button onClick={increment}>+1</button>
       <button onClick={decrement}>-1</button>
-      <div>This component was re-renderdered {renderTimes.current} times</div>
+      <div>This component was re-rendered {renderTimes.current} times</div>
+      <input ref={ref} type='text' />
+      {/* ボタンを押すとinputにフォーカスが移る */}
+      <button onClick={focusInput}>Click Me</button>
     </>
   );
 };
